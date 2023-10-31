@@ -21,3 +21,75 @@ While NoSQL databases like MongoDB, Cassandra, or Redis have their strengths and
 
 ## Dive Deep into SQL!
 As you embark on this enlightening journey, remember that learning SQL is not just about writing queries. It's about comprehending the philosophy of structured data, the art of relational design, and the essence of data relationships. Happy Querying!
+
+## Setup
+
+The main setup is through:
+- [LocalStack](https://github.com/localstack/localstack)
+- [Use the Terraform Infrastructure as Code framework with LocalStack](https://docs.localstack.cloud/user-guide/integrations/terraform/)
+
+Please ensure to have the necessary libraries and packages installed.
+
+### Docker
+
+Following [Install Docker Engine on Ubuntu](https://docs.docker.com/engine/install/ubuntu/) to install Docker Engine.
+
+Please ensure to enable Non-Root User Access for Docker - [How to Fix Docker Permission Denied?](https://phoenixnap.com/kb/docker-permission-denied):
+```termnial
+sudo groupadd -f docker
+sudo usermod -aG docker $USER
+newgrp docker
+```
+
+### Docker Compose
+
+Following [Install the Compose plugin](https://docs.docker.com/compose/install/linux/) to install Docker-Compose Plugin.
+```terminal
+sudo apt-get update
+sudo apt-get install docker-compose-plugin
+
+```
+
+### Conda Environment
+
+Create a virutal python environment and install requirements.txt
+
+```terminal
+conda env create -f environment.yml
+```
+
+**To save a conda environment**:
+```terminal
+conda env export | grep -v "^prefix: " > environment.yml
+```
+
+### Python Environment
+
+If you are installing through pip
+
+```terminal
+pip install -r requirements.txt
+```
+
+**To save a python environment**:
+```terminal
+pip freeze > requirements.txt
+```
+
+### Initialization & Verification
+
+```terminal
+sudo docker-compose -f docker-compose.yml up -d
+docker container ls
+```
+Output the folowing:
+```terminal
+CONTAINER ID   IMAGE                            COMMAND                  CREATED          STATUS                 PORTS                                                                    NAMES
+4d8115aeea93   mcr.microsoft.com/mssql/server   "/opt/mssql/bin/perm…"   37 seconds ago   Up 7 seconds           0.0.0.0:1433->1433/tcp, :::1433->1433/tcp                                database-sql-oreilly_sql_1
+```
+
+
+### How to Use This Repository:
+
+Place Holder
+- Jupyter NoteBook for Chapters
