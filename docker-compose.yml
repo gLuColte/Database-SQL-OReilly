@@ -10,6 +10,6 @@ services:
     ports: 
       - 1433:1433 
     volumes:
-      - /home/moti/data:/var/opt/mssql/data
-      - /home/log:/var/opt/mssql/log
-      - /home/secrets:/var/opt/mssql/secrets
+      - ./database/sql/data:/var/opt/mssql/data
+      - ./database/sql/log:/var/opt/mssql/log
+      - ./database/sql/secrets:/var/opt/mssql/secrets
