@@ -98,6 +98,7 @@ CONTAINER ID   IMAGE                            COMMAND                  CREATED
 ```
 
 **To Explain on how entrypoint.sh initialize**
+
 Within docker-compose.yml, a command is given:
 ```docker-compose
 command: /bin/sh /usr/src/app/entrypoint.sh
