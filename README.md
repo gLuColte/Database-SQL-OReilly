@@ -84,6 +84,7 @@ pip freeze > requirements.txt
 
 ### Initialization & Verification
 
+Execute Docer-compose yaml:
 ```terminal
 sudo docker-compose -f docker-compose.yml up -d
 docker container ls
@@ -93,6 +94,20 @@ Outputs the following:
 CONTAINER ID   IMAGE                            COMMAND                  CREATED          STATUS                 PORTS                                                                    NAMES
 4d8115aeea93   mcr.microsoft.com/mssql/server   "/opt/mssql/bin/perm…"   37 seconds ago   Up 7 seconds           0.0.0.0:1433->1433/tcp, :::1433->1433/tcp                                database-sql-oreilly_sql_1
 ```
+
+Execute Fixtures:
+```terminal
+conda activate database-env-1
+python ./fixtures/data-generator.py
+```
+
+### Microsoft Azure Data Studio
+
+You can access your MS SQL Server through Azure Data Studio, to install download the client through the following link:
+- [Quickstart: Use Azure Data Studio to connect and query SQL Server](https://learn.microsoft.com/en-us/azure-data-studio/quickstart-sql-server)
+
+Once within the client, create a new connection:
+![Azure Data Studio New Connection](./markdown-images/azure-data-studio.png)
 
 
 ### How to Use This Repository:
