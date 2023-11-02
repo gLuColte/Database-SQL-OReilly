@@ -84,22 +84,47 @@ pip freeze > requirements.txt
 
 ### Initialization & Verification
 
-Execute Docer-compose yaml:
+Change entrypoint.sh to executable and Execute Docer-compose yaml:
 ```terminal
+chmod +x entrypoint.sh
 sudo docker-compose -f docker-compose.yml up -d
 docker container ls
 ```
+
 Outputs the following:
 ```terminal
 CONTAINER ID   IMAGE                            COMMAND                  CREATED          STATUS                 PORTS                                                                    NAMES
 4d8115aeea93   mcr.microsoft.com/mssql/server   "/opt/mssql/bin/perm…"   37 seconds ago   Up 7 seconds           0.0.0.0:1433->1433/tcp, :::1433->1433/tcp                                database-sql-oreilly_sql_1
 ```
 
-Execute Fixtures:
+**To Explain on how entrypoint.sh initialize**
+Within docker-compose.yml, a command is given:
+```docker-compose
+command: /bin/sh /usr/src/app/entrypoint.sh
+volumes:
+      - ./init.sql:/usr/src/app/init.sql
+      - ./entrypoint.sh:/usr/src/app/entrypoint.sh
+```
+The two volume mount takes the within [init.sql](./init.sql) and [entrypoint.sh](./entrypoint.sh) files and copy into docker, the command basically executes the entrypoint.sh. 
+
+Within the entrypoint.sh:
+```sh
+USERNAME="SA"
+PASSWORD="admin123!"
+```
+Using the System Admin Credentials, you are logged into ./sqlcmd to execute init.sql commands. The commands contain within [init.sql](./init.sql), have the following purposes:
+- Create a username: "developer001" 
+- Create a password for "developer001": "developer001password!"
+- Create an empty database "development"
+
+### Execute Fixtures:
 ```terminal
 conda activate database-env-1
 python ./fixtures/data-generator.py
 ```
+
+
+
 
 ### Microsoft Azure Data Studio
 
@@ -107,8 +132,12 @@ You can access your MS SQL Server through Azure Data Studio, to install download
 - [Quickstart: Use Azure Data Studio to connect and query SQL Server](https://learn.microsoft.com/en-us/azure-data-studio/quickstart-sql-server)
 
 Once within the client, create a new connection:
-![Azure Data Studio New Connection](./markdown-images/azure-data-studio.png)
 
+![Azure Data Studio New Connection](./markdown-images/azure-data-studio-new-connection.png)
+
+Once successfully conencted to the server, you should be able to see the following:
+
+![Azure Data Studio Development Database](./markdown-images/azure-data-studio-development-db.png)
 
 ### How to Use This Repository:
 

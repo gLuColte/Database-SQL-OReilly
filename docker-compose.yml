@@ -10,5 +10,8 @@ services:
       MSSQL_PID: 'Express'
     ports:
       - '1433:1433'
+    command: /bin/sh /usr/src/app/entrypoint.sh
     volumes:
       - ./database/sql:/var/opt/mssql
+      - ./init.sql:/usr/src/app/init.sql
+      - ./entrypoint.sh:/usr/src/app/entrypoint.sh

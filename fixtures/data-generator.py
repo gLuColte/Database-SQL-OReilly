@@ -18,10 +18,11 @@ from random import choice, randrange, sample, randint
 ##########################################################################
 
 # SQL Sever Link
-SA_PASSWORD = "admin123!"
+PASSWORD = "developer001password!"
+USERNAME = "developer001"
 URL_PATH = "localhost:1433"
-DATABASE_NAME = "master"
-connection_string = f"mssql+pyodbc://sa:{SA_PASSWORD}@{URL_PATH}/{DATABASE_NAME}?driver=ODBC+Driver+18+for+SQL+Server&TrustServerCertificate=Yes"
+DATABASE_NAME = "development"
+connection_string = f"mssql+pyodbc://{USERNAME}:{PASSWORD}@{URL_PATH}/{DATABASE_NAME}?driver=ODBC+Driver+18+for+SQL+Server&TrustServerCertificate=Yes"
 
 
 # Role List 
@@ -139,8 +140,10 @@ if __name__ == "__main__":
     
     # Confirming
     for table_name in ['dept', 'emp']:
-        sql_command = f'SELECT * FROM [master].[dbo].[{table_name}]'
+        sql_command = f'SELECT * FROM [{DATABASE_NAME}].[dbo].[{table_name}]'
         print(f"SQL command = {sql_command}")
         print(f"Output:\n{pd.read_sql_query(sql_command, con=engine)}")
         print("========================")
     
+    # Close COnnection 
+    engine.dispose()
