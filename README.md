@@ -24,12 +24,6 @@ As you embark on this enlightening journey, remember that learning SQL is not ju
 
 ## Setup
 
-The main setup is through:
-- [LocalStack](https://github.com/localstack/localstack)
-- [Use the Terraform Infrastructure as Code framework with LocalStack](https://docs.localstack.cloud/user-guide/integrations/terraform/)
-
-Please ensure to have the necessary libraries and packages installed.
-
 ### Docker
 
 Following [Install Docker Engine on Ubuntu](https://docs.docker.com/engine/install/ubuntu/) to install Docker Engine.
@@ -82,7 +76,7 @@ pip freeze > requirements.txt
 sudo docker-compose -f docker-compose.yml up -d
 docker container ls
 ```
-Output the folowing:
+Outputs the following:
 ```terminal
 CONTAINER ID   IMAGE                            COMMAND                  CREATED          STATUS                 PORTS                                                                    NAMES
 4d8115aeea93   mcr.microsoft.com/mssql/server   "/opt/mssql/bin/perm…"   37 seconds ago   Up 7 seconds           0.0.0.0:1433->1433/tcp, :::1433->1433/tcp                                database-sql-oreilly_sql_1
