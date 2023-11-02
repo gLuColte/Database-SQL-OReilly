@@ -41,7 +41,19 @@ Following [Install the Compose plugin](https://docs.docker.com/compose/install/l
 ```terminal
 sudo apt-get update
 sudo apt-get install docker-compose-plugin
+```
 
+### SQL Related Installation
+
+An ODBC driver uses the Open Database Connectivity (ODBC) interface by Microsoft that allows applications to access data in database management systems (DBMS) using SQL as a standard for accessing the data. ODBC permits maximum interoperability, which means a single application can access different DBMS.
+
+Following tutorial from Microsoft - [Install the Microsoft ODBC driver for SQL Server (Linux)](https://learn.microsoft.com/en-us/sql/connect/odbc/linux-mac/installing-the-microsoft-odbc-driver-for-sql-server?view=sql-server-ver16&tabs=ubuntu18-install%2Calpine17-install%2Cdebian8-install%2Credhat7-13-install%2Crhel7-offline)
+
+A shell script is provided and need to be executed:
+
+```terminal
+chmod +x microsoft_odbc_18_installation.sh
+./microsoft_odbc_18_installation.sh
 ```
 
 ### Conda Environment
