@@ -1,17 +1,11 @@
-version: '3.4'
-
 services:
   sql:
     image: mcr.microsoft.com/mssql/server:2019-latest
-    user: root
-    environment:
-      ACCEPT_EULA: 'Y'
-      SA_PASSWORD: admin123!
-      MSSQL_PID: 'Express'
+    env_file:
+      - .env
     ports:
       - '1433:1433'
-    command: /bin/sh /usr/src/app/entrypoint.sh
-    volumes:
-      - ./database/sql:/var/opt/mssql
-      - ./init.sql:/usr/src/app/init.sql
-      - ./entrypoint.sh:/usr/src/app/entrypoint.sh
+    environment:
+      - ACCEPT_EULA=${ACCEPT_EULA}
+      - SA_PASSWORD=${SA_PASSWORD}
+      - MSSQL_PID=${MSSQL_PID}

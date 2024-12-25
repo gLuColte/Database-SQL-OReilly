@@ -12,12 +12,58 @@ In the vast world of data, understanding SQL is paramount for several reasons:
 4. **Security**: SQL offers granular control over data access, ensuring data security and integrity.
 5. **Integration** : SQL databases easily integrate with various tools, platforms, and applications, making data accessibility and utilization streamlined.
 
-### SQL vs. Other Database Forms
-While NoSQL databases like MongoDB, Cassandra, or Redis have their strengths and specific use cases, SQL databases stand out for:
-- **Structured Data**: SQL databases provide a clear structure, ensuring data consistency and integrity.
-- **ACID Properties**: SQL databases adhere to Atomicity, Consistency, Isolation, and Durability (ACID) properties, guaranteeing reliable transactions.
-- **Flexibility in Queries**: SQL offers unmatched flexibility in querying, allowing for complex joins, sub-queries, and aggregations.
-- **Maturity**: Being around for decades, SQL databases have matured, offering robustness and a vast ecosystem of tools and community support.
+# Database Comparison: MSSQL vs MySQL vs MongoDB vs Weaviate
+
+## Overview
+Choosing the right database depends on your specific project needs, including scalability, structure, performance, and ecosystem compatibility. Below is a comparison of four popular databases: **MSSQL**, **MySQL**, **MongoDB**, and **Weaviate**.
+
+---
+
+## Comparison Table
+
+| **Feature**             | **MSSQL**                        | **MySQL**                       | **MongoDB**                     | **Weaviate**                     |
+|--------------------------|-----------------------------------|----------------------------------|----------------------------------|-----------------------------------|
+| **Database Type**        | Relational (SQL)                 | Relational (SQL)                | NoSQL (Document-based)          | Vector Database (AI-focused)     |
+| **License**              | Paid (Free Developer Edition)    | Free (Community Edition)         | Free (Community), Paid (Atlas)  | Free (Open-source), Paid (Cloud) |
+| **Schema**               | Strict (schema required)         | Strict (schema required)         | Flexible (schema-less)          | Schema-defined for vectors       |
+| **Use Case**             | Enterprise apps, BI, analytics   | Web apps, lightweight systems   | Flexible apps, semi-structured data | AI/ML, semantic search, vector-based search |
+| **Scalability**          | Vertical (large servers)         | Horizontal (replication)         | Horizontal (sharding)           | Horizontal (vector indexing)     |
+| **Performance**          | High for enterprise workloads    | High for web-based workloads     | High for read/write-heavy apps  | Optimized for vector similarity  |
+| **Ease of Use**          | Advanced tooling and GUI         | Simpler setup                    | Flexible, JSON-native           | Requires ML/vector understanding |
+| **Query Language**       | T-SQL                            | SQL                              | MongoDB Query Language (JSON-like) | GraphQL-like                     |
+| **Security**             | Advanced, enterprise-grade       | Basic, configurable              | Role-based, field-level security | API keys, SSL/TLS, user roles    |
+| **Integration**          | Strong with Microsoft products   | Flexible with diverse platforms  | Cloud-native (Atlas), REST APIs | Integrates with ML/AI frameworks |
+| **Community Support**    | Smaller, enterprise-focused      | Large, open-source community     | Large, open-source community    | Growing, focused community       |
+| **Storage Format**       | Tables                           | Tables                           | BSON (binary JSON)              | Vector embeddings, metadata      |
+| **Strength**             | Analytics, transaction-heavy apps | Simplicity, web apps             | Flexible, unstructured data     | AI/ML-driven similarity search   |
+| **Weakness**             | Costly, less flexible            | Less suited for complex data     | Requires indexing for queries   | Requires vector data preparation |
+
+---
+
+## When to Use Each Database
+
+### MSSQL
+- **Best For**: Enterprise-grade workloads with strict schema requirements.
+- **Ideal Use Case**: Complex analytics, BI, and transaction-heavy systems.
+- **Strengths**: Advanced tooling, strong security, and seamless integration with Microsoft products.
+
+### MySQL
+- **Best For**: Lightweight, cost-effective web applications.
+- **Ideal Use Case**: Startups and projects with moderate data complexity.
+- **Strengths**: Large community, simplicity, and compatibility with diverse platforms.
+
+### MongoDB
+- **Best For**: Flexible systems handling semi-structured or unstructured data.
+- **Ideal Use Case**: Real-time analytics, content management, or IoT applications.
+- **Strengths**: Schema-less design, high scalability, and JSON-native queries.
+
+### Weaviate
+- **Best For**: AI/ML-powered systems requiring vector-based similarity searches.
+- **Ideal Use Case**: Search engines, recommendation systems, and knowledge graphs.
+- **Strengths**: Tailored for embedding-based models like CLIP or LLMs.
+
+---
+
 
 ## Dive Deep into SQL!
 As you embark on this enlightening journey, remember that learning SQL is not just about writing queries. It's about comprehending the philosophy of structured data, the art of relational design, and the essence of data relationships. Happy Querying!
@@ -82,43 +128,7 @@ pip install -r requirements.txt
 pip freeze > requirements.txt
 ```
 
-### Initialization & Verification
-
-Change entrypoint.sh to executable and Execute Docer-compose yaml:
-```terminal
-chmod +x entrypoint.sh
-sudo docker-compose -f docker-compose.yml up -d
-docker container ls
-```
-
-Outputs the following:
-```terminal
-CONTAINER ID   IMAGE                            COMMAND                  CREATED          STATUS                 PORTS                                                                    NAMES
-4d8115aeea93   mcr.microsoft.com/mssql/server   "/opt/mssql/bin/perm…"   37 seconds ago   Up 7 seconds           0.0.0.0:1433->1433/tcp, :::1433->1433/tcp                                database-sql-oreilly_sql_1
-```
-
-**To Explain on how entrypoint.sh initialize**
-
-Within docker-compose.yml, a command is given:
-```docker-compose
-command: /bin/sh /usr/src/app/entrypoint.sh
-volumes:
-      - ./init.sql:/usr/src/app/init.sql
-      - ./entrypoint.sh:/usr/src/app/entrypoint.sh
-```
-The two volume mount takes the within [init.sql](./init.sql) and [entrypoint.sh](./entrypoint.sh) files and copy into docker, the command basically executes the entrypoint.sh. 
-
-Within the entrypoint.sh:
-```sh
-USERNAME="SA"
-PASSWORD="admin123!"
-```
-Using the System Admin Credentials, you are logged into ./sqlcmd to execute init.sql commands. The commands contain within [init.sql](./init.sql), have the following purposes:
-- Create a username: "developer001" 
-- Create a password for "developer001": "developer001password!"
-- Create an empty database "development"
-
-### Execute Fixtures:
+## Execute Fixtures:
 ```terminal
 conda activate database-env-1
 python ./fixtures/data-generator.py
